@@ -1,4 +1,4 @@
-import styles from "./Notification.module.css"; // Подключаем стили
+import styles from "./Notification.module.css";
 
 function Notification() {
   return <p className={styles.notification}>No feedback yet</p>;

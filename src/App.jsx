@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Feedback from "./components/Feedback/Feedback";
 import Options from "./components/Options/Options";
 import Notification from "./components/Notification/Notification";
+import Description from "./components/Description/Description";
 
 function App() {
   const [feedbacks, setFeedbacks] = useState({
@@ -28,6 +29,9 @@ function App() {
 
   const totalFeedback = feedbacks.good + feedbacks.neutral + feedbacks.bad;
 
+  const positiveFeedback =
+    totalFeedback > 0 ? Math.round((feedbacks.good / totalFeedback) * 100) : 0;
+
   // Збереження статистики в localStorage
   useEffect(() => {
     const savedFeedbacks = JSON.parse(localStorage.getItem("feedbacks"));
@@ -42,11 +46,7 @@ function App() {
 
   return (
     <>
-      <h1>Sip Happens Café</h1>
-      <p>
-        Please leave your feedback about our service by selecting one of the
-        options below.
-      </p>
+      <Description />
       <Options updateFeedback={updateFeedback} totalFeedback={totalFeedback} />
       {totalFeedback > 0 ? (
         <Feedback
@@ -54,6 +54,7 @@ function App() {
           neutral={feedbacks.neutral}
           bad={feedbacks.bad}
           totalFeedback={totalFeedback}
+          positiveFeedback={positiveFeedback}
         />
       ) : (
         <Notification />
